@@ -17,8 +17,12 @@ public class ActualizarUsuarioDto
     [MaxLength(150)]
     public string Correo { get; set; } = string.Empty;
 
-    [Range(1, 120)]
-    public int Edad { get; set; }
+    [Required]
+    public DateTime FechaNacimiento { get; set; }
+
+    public string Universidad { get; set; } = string.Empty;
+
+    public int Semestre { get; set; }
 
     public bool Activo { get; set; }
 }

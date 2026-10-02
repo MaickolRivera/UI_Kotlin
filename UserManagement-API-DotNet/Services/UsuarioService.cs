@@ -40,9 +40,9 @@ public class UsuarioService : IUsuarioService
     // ==========================================
     // CREAR USUARIO
     // ==========================================
-    public async Task<UsuarioDto> CrearAsync(CrearUsuarioDto d)
+    public async Task<UsuarioDto> CrearAsync(CrearUsuarioDto usuarioDto)
     {
-        var correo = d.Correo
+        var correo = usuarioDto.Correo
             .Trim()
             .ToLowerInvariant();
 
@@ -56,16 +56,17 @@ public class UsuarioService : IUsuarioService
 
         // Convertir contraseña en HASH
         var passwordHash =
-            BCrypt.Net.BCrypt.HashPassword(d.Password);
+            BCrypt.Net.BCrypt.HashPassword(usuarioDto.Password);
 
         var usuario = new Usuario
         {
-            Nombre = d.Nombre.Trim(),
-            Apellido = d.Apellido.Trim(),
+            Nombre = usuarioDto.Nombre.Trim(),
+            Apellido = usuarioDto.Apellido.Trim(),
             Correo = correo,
             PasswordHash = passwordHash,
-            Edad = d.Edad,
-            RolId = d.RolId
+            FechaNacimiento = usuarioDto.FechaNacimiento,
+            Universidad = usuarioDto.Universidad,
+            Semestre = usuarioDto.Semestre
         };
 
         await _repo.CrearAsync(usuario);
@@ -127,7 +128,7 @@ public class UsuarioService : IUsuarioService
     // ==========================================
     public async Task<bool> ActualizarAsync(
         int id,
-        ActualizarUsuarioDto d)
+        ActualizarUsuarioDto actualizarUsuarioDto)
     {
         var usuario =
             await _repo.ObtenerPorIdAsync(id);
@@ -137,7 +138,7 @@ public class UsuarioService : IUsuarioService
             return false;
         }
 
-        var correo = d.Correo
+        var correo = actualizarUsuarioDto.Correo
             .Trim()
             .ToLowerInvariant();
 
@@ -152,11 +153,13 @@ public class UsuarioService : IUsuarioService
             );
         }
 
-        usuario.Nombre = d.Nombre.Trim();
-        usuario.Apellido = d.Apellido.Trim();
+        usuario.Nombre = actualizarUsuarioDto.Nombre.Trim();
+        usuario.Apellido = actualizarUsuarioDto.Apellido.Trim();
         usuario.Correo = correo;
-        usuario.Edad = d.Edad;
-        usuario.Activo = d.Activo;
+        usuario.FechaNacimiento = actualizarUsuarioDto.FechaNacimiento;
+        usuario.Activo = actualizarUsuarioDto.Activo;
+        usuario.Universidad = actualizarUsuarioDto.Universidad;
+        usuario.Semestre = actualizarUsuarioDto.Semestre;
 
         await _repo.ActualizarAsync(usuario);
 
@@ -184,17 +187,19 @@ public class UsuarioService : IUsuarioService
     // ==========================================
     // MAPEO ENTITY -> DTO
     // ==========================================
-    private static UsuarioDto Map(Usuario u)
+    private static UsuarioDto Map(Usuario usuario)
     {
         return new UsuarioDto
         {
-            Id = u.Id,
-            Nombre = u.Nombre,
-            Apellido = u.Apellido,
-            Correo = u.Correo,
-            Edad = u.Edad,
-            Activo = u.Activo,
-            FechaCreacion = u.FechaCreacion
+            Id = usuario.Id,
+            Nombre = usuario.Nombre,
+            Apellido = usuario.Apellido,
+            Correo = usuario.Correo,
+            FechaNacimiento = usuario.FechaNacimiento,
+            Activo = usuario.Activo,
+            Universidad = usuario.Universidad,
+            Semestre = usuario.Semestre,
+            FechaCreacion = usuario.FechaCreacion
         };
     }
 }
