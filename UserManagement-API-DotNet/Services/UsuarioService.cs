@@ -65,6 +65,7 @@ public class UsuarioService : IUsuarioService
             Correo = correo,
             PasswordHash = passwordHash,
             FechaNacimiento = usuarioDto.FechaNacimiento,
+            Edad = usuarioDto.Edad,
             Universidad = usuarioDto.Universidad,
             Semestre = usuarioDto.Semestre
         };
@@ -157,6 +158,7 @@ public class UsuarioService : IUsuarioService
         usuario.Apellido = actualizarUsuarioDto.Apellido.Trim();
         usuario.Correo = correo;
         usuario.FechaNacimiento = actualizarUsuarioDto.FechaNacimiento;
+        usuario.Edad = actualizarUsuarioDto.Edad;
         usuario.Activo = actualizarUsuarioDto.Activo;
         usuario.Universidad = actualizarUsuarioDto.Universidad;
         usuario.Semestre = actualizarUsuarioDto.Semestre;
@@ -196,6 +198,7 @@ public class UsuarioService : IUsuarioService
             Apellido = usuario.Apellido,
             Correo = usuario.Correo,
             FechaNacimiento = usuario.FechaNacimiento,
+            Edad = usuario.Edad,
             Activo = usuario.Activo,
             Universidad = usuario.Universidad,
             Semestre = usuario.Semestre,

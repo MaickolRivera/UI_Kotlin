@@ -15,6 +15,8 @@ public class Usuario
 
     public DateTime FechaNacimiento { get; set; }
 
+    public string Edad { get; set; } = string.Empty;
+
     public bool Activo { get; set; } = true;
 
     public string Universidad{get; set;} = string.Empty;

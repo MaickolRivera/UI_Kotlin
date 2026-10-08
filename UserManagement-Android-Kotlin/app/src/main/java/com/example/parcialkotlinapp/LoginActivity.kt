@@ -1,4 +1,4 @@
-package com.example.parcialkotlinapp
+﻿package com.example.parcialkotlinapp
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.parcialkotlinapp.api.ApiClient
+import com.example.parcialkotlinapp.api.mensajeError
 import com.example.parcialkotlinapp.models.LoginRequest
 import com.example.parcialkotlinapp.models.Usuario
 import retrofit2.Call
@@ -14,163 +15,71 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
+    private var loginCall: Call<Usuario>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_login)
 
-        // =====================================
-        // COMPONENTES
-        // =====================================
+        val correo = findViewById<EditText>(R.id.etCorreo)
+        val password = findViewById<EditText>(R.id.etPassword)
+        val ingresar = findViewById<Button>(R.id.btnIngresar)
+        val crearCuenta = findViewById<Button>(R.id.btnCrearCuenta)
+        val mensaje = findViewById<TextView>(R.id.tvMensaje)
 
-        val etCorreo =
-            findViewById<EditText>(R.id.etCorreo)
-
-        val etPassword =
-            findViewById<EditText>(R.id.etPassword)
-
-        val btnIngresar =
-            findViewById<Button>(R.id.btnIngresar)
-
-        val btnCrearCuenta =
-            findViewById<Button>(R.id.btnCrearCuenta)
-
-        val tvMensaje =
-            findViewById<TextView>(R.id.tvMensaje)
-
-        // =====================================
-        // BOTÓN INGRESAR
-        // =====================================
-
-        btnIngresar.setOnClickListener {
-
-            val correo =
-                etCorreo.text.toString().trim()
-
-            val password =
-                etPassword.text.toString()
-
-            // =====================================
-            // VALIDACIONES
-            // =====================================
-
-            if (correo.isBlank()) {
-                etCorreo.error = "Ingrese el correo"
+        ingresar.setOnClickListener {
+            val correoIngresado = correo.text.toString().trim()
+            val passwordIngresado = password.text.toString()
+            if (correoIngresado.isBlank()) {
+                correo.error = getString(R.string.required_email)
+                return@setOnClickListener
+            }
+            if (passwordIngresado.isBlank()) {
+                password.error = getString(R.string.required_password)
                 return@setOnClickListener
             }
 
-            if (password.isBlank()) {
-                etPassword.error = "Ingrese la contraseña"
-                return@setOnClickListener
-            }
-
-            // =====================================
-            // CREAR OBJETO PARA EL LOGIN
-            // =====================================
-
-            val loginRequest = LoginRequest(
-                correo = correo,
-                password = password
-            )
-
-            tvMensaje.text = "Validando usuario..."
-
-            // Evitar varios clics mientras responde la API
-            btnIngresar.isEnabled = false
-
-            // =====================================
-            // CONSUMIR API .NET
-            // =====================================
-
-            ApiClient.usuarioApi
-                .login(loginRequest)
-                .enqueue(object : Callback<Usuario> {
-
-                    // =====================================
-                    // RESPUESTA DEL SERVIDOR
-                    // =====================================
-                    override fun onResponse(
-                        call: Call<Usuario>,
-                        response: Response<Usuario>
-                    ) {
-
-                        btnIngresar.isEnabled = true
-
-                        // LOGIN CORRECTO
-                        if (response.isSuccessful) {
-
-                            val usuario = response.body()
-
-                            tvMensaje.text =
-                                "Bienvenido ${usuario?.nombre}"
-
-                            // Ir al menú principal
-                            val intent = Intent(
-                                this@LoginActivity,
-                                MainActivity::class.java
-                            )
-
-                            // Enviar información del usuario
-                            intent.putExtra(
-                                "nombreUsuario",
-                                usuario?.nombre
-                            )
-
-                            intent.putExtra(
-                                "correoUsuario",
-                                usuario?.correo
-                            )
-
-                            startActivity(intent)
-
-                            // Cerrar pantalla de Login
-                            finish()
-
-                        }
-                        // CREDENCIALES INCORRECTAS
-                        else if (response.code() == 401) {
-
-                            tvMensaje.text =
-                                "Correo o contraseña incorrectos"
-
-                        }
-                        // OTRO ERROR DEL BACKEND
-                        else {
-
-                            tvMensaje.text =
-                                "Error del servidor: ${response.code()}"
-                        }
+            ingresar.isEnabled = false
+            crearCuenta.isEnabled = false
+            mensaje.setText(R.string.logging_in)
+            loginCall = ApiClient.usuarioApi.login(LoginRequest(correoIngresado, passwordIngresado))
+            loginCall?.enqueue(object : Callback<Usuario> {
+                override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
+                    if (isFinishing || isDestroyed) return
+                    ingresar.isEnabled = true
+                    crearCuenta.isEnabled = true
+                    val usuario = response.body()
+                    if (response.isSuccessful && usuario != null && !usuario.nombre.isNullOrBlank()) {
+                        password.text.clear()
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java).apply {
+                            putExtra("nombreUsuario", usuario.nombre)
+                            putExtra("correoUsuario", usuario.correo)
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        })
+                        finish()
+                    } else {
+                        mensaje.text = if (response.isSuccessful) {
+                            getString(R.string.invalid_login_response)
+                        } else response.mensajeError(this@LoginActivity)
                     }
+                }
 
-                    // =====================================
-                    // ERROR DE CONEXIÓN
-                    // =====================================
-                    override fun onFailure(
-                        call: Call<Usuario>,
-                        t: Throwable
-                    ) {
-
-                        btnIngresar.isEnabled = true
-
-                        tvMensaje.text =
-                            "No se pudo conectar con el servidor: ${t.message}"
-                    }
-                })
+                override fun onFailure(call: Call<Usuario>, t: Throwable) {
+                    if (call.isCanceled || isFinishing || isDestroyed) return
+                    ingresar.isEnabled = true
+                    crearCuenta.isEnabled = true
+                    mensaje.setText(R.string.connection_error)
+                }
+            })
         }
 
-        // =====================================
-        // BOTÓN CREAR CUENTA
-        // =====================================
-
-        btnCrearCuenta.setOnClickListener {
-
-            val intent = Intent(
-                this,
-                RegistroActivity::class.java
-            )
-
-            startActivity(intent)
+        crearCuenta.setOnClickListener {
+            startActivity(Intent(this, RegistroActivity::class.java))
         }
+    }
+
+    override fun onDestroy() {
+        loginCall?.cancel()
+        super.onDestroy()
     }
 }

@@ -1,156 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="30dp">
-
-        <!-- ===================================== -->
-        <!-- LOGO -->
-        <!-- ===================================== -->
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:contentDescription="Logo UCompensar"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logo_ucompensar" />
-
-        <!-- ===================================== -->
-        <!-- TÍTULO -->
-        <!-- ===================================== -->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:gravity="center"
-            android:text="Registro de usuario"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-        <!-- ===================================== -->
-        <!-- NOMBRE -->
-        <!-- ===================================== -->
-
-        <EditText
-            android:id="@+id/etNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nombre"
-            android:inputType="textPersonName" />
-
-        <!-- ===================================== -->
-        <!-- APELLIDO -->
-        <!-- ===================================== -->
-
-        <EditText
-            android:id="@+id/etApellido"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="Apellido"
-            android:inputType="textPersonName" />
-
-        <!-- ===================================== -->
-        <!-- CORREO -->
-        <!-- ===================================== -->
-
-        <EditText
-            android:id="@+id/etCorreoRegistro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="Correo electrónico"
-            android:inputType="textEmailAddress" />
-
-        <!-- ===================================== -->
-        <!-- CONTRASEÑA -->
-        <!-- ===================================== -->
-
-        <EditText
-            android:id="@+id/etPasswordRegistro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="Contraseña"
-            android:inputType="textPassword" />
-
-        <!-- ===================================== -->
-        <!-- EDAD -->
-        <!-- ===================================== -->
-
-        <EditText
-            android:id="@+id/etEdad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="Edad"
-            android:inputType="number" />
-
-        <!-- ===================================== -->
-        <!-- ROL -->
-        <!-- ===================================== -->
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:text="Rol"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/spRol"
-            android:layout_width="match_parent"
-            android:layout_height="50dp" />
-
-        <!-- ===================================== -->
-        <!-- BOTÓN REGISTRAR -->
-        <!-- ===================================== -->
-
-        <Button
-            android:id="@+id/btnRegistrar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="REGISTRAR" />
-
-        <!-- ===================================== -->
-        <!-- MENSAJE -->
-        <!-- ===================================== -->
-
-        <TextView
-            android:id="@+id/tvMensajeRegistro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:text=""
-            android:textSize="17sp" />
-
-        <!-- ===================================== -->
-        <!-- BOTÓN VOLVER -->
-        <!-- ===================================== -->
-
-        <Button
-            android:id="@+id/btnVolver"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="30dp"
-            android:text="VOLVER AL LOGIN" />
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fitsSystemWindows="true" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="24dp">
+        <ImageButton android:id="@+id/btnAtras" android:layout_width="48dp" android:layout_height="48dp"
+            android:src="@drawable/ic_arrow_back" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="@string/back" />
+        <ImageView android:layout_width="match_parent" android:layout_height="100dp"
+            android:contentDescription="@string/logo_description" android:scaleType="fitCenter" android:src="@drawable/logo_ucompensar" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/register_title" android:textSize="28sp" android:textStyle="bold" android:gravity="center" android:layout_marginBottom="25dp" />
+        <EditText android:id="@+id/etNombre" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="@string/name" android:inputType="textPersonName" android:maxLength="100" />
+        <EditText android:id="@+id/etApellido" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="@string/surname" android:inputType="textPersonName" android:maxLength="100" android:layout_marginTop="15dp" />
+        <EditText android:id="@+id/etCorreoRegistro" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="@string/email" android:inputType="textEmailAddress" android:maxLength="150" android:layout_marginTop="15dp" />
+        <EditText android:id="@+id/etPasswordRegistro" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="@string/password" android:inputType="textPassword" android:layout_marginTop="15dp" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/birth_date" android:labelFor="@id/btnFechaNacimiento" android:layout_marginTop="15dp" />
+        <Button android:id="@+id/btnFechaNacimiento" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/select_birth_date" />
+        <TextView android:id="@+id/tvEdadCalculada" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:visibility="gone" android:accessibilityLiveRegion="polite" />
+        <EditText android:id="@+id/etUniversidad" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:hint="@string/university" android:inputType="textCapWords" android:maxLength="250" android:layout_marginTop="15dp" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/semester" android:labelFor="@id/spSemestre" android:layout_marginTop="15dp" />
+        <Spinner android:id="@+id/spSemestre" android:layout_width="match_parent" android:layout_height="50dp" />
+        <Button android:id="@+id/btnRegistrar" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/register" android:layout_marginTop="25dp" />
+        <TextView android:id="@+id/tvMensajeRegistro" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:gravity="center" android:textSize="17sp" android:layout_marginTop="15dp" android:accessibilityLiveRegion="polite" />
     </LinearLayout>
-
 </ScrollView>

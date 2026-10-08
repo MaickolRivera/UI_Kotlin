@@ -19,6 +19,8 @@ public class CrearUsuarioDto
     [Required]
     public DateTime FechaNacimiento { get; set; }
 
+    public string Edad { get; set; } = string.Empty;
+
     [Required, MaxLength(250)]
     public string Universidad { get; set; } = string.Empty;
 

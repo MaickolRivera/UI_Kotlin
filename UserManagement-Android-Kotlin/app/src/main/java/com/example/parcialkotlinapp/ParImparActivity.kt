@@ -1,6 +1,7 @@
 package com.example.parcialkotlinapp
 
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -17,7 +18,7 @@ class ParImparActivity : AppCompatActivity() {
         val etNumero = findViewById<EditText>(R.id.etNumero)
         val btnValidar = findViewById<Button>(R.id.btnValidar)
         val tvResultado = findViewById<TextView>(R.id.tvResultado)
-        val btnVolver = findViewById<Button>(R.id.btnVolver)
+        val btnAtras = findViewById<ImageButton>(R.id.btnAtras)
 
         // Evento del botón
         btnValidar.setOnClickListener {
@@ -26,7 +27,7 @@ class ParImparActivity : AppCompatActivity() {
 
             // Validar que el campo no esté vacío
             if (texto.isEmpty()) {
-                etNumero.error = "Ingrese un número"
+                etNumero.error = getString(R.string.required_number)
                 return@setOnClickListener
             }
 
@@ -34,23 +35,23 @@ class ParImparActivity : AppCompatActivity() {
             val numero = texto.toIntOrNull()
 
             if (numero == null) {
-                etNumero.error = "Ingrese un número entero válido"
+                etNumero.error = getString(R.string.invalid_number)
                 return@setOnClickListener
             }
 
             // Validación par o impar
             if (numero % 2 == 0) {
-                tvResultado.text = "$numero es PAR"
+                tvResultado.text = getString(R.string.result_even, numero)
             } else {
-                tvResultado.text = "$numero es IMPAR"
+                tvResultado.text = getString(R.string.result_odd, numero)
             }
         }
 
         // =====================================
-        // VOLVER AL LOGIN
+        // REGRESAR A LA PANTALLA PRINCIPAL
         // =====================================
 
-        btnVolver.setOnClickListener {
+        btnAtras.setOnClickListener {
             finish()
         }
     }

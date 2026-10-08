@@ -20,6 +20,8 @@ public class ActualizarUsuarioDto
     [Required]
     public DateTime FechaNacimiento { get; set; }
 
+    public string Edad { get; set; } = string.Empty;
+
     public string Universidad { get; set; } = string.Empty;
 
     public int Semestre { get; set; }

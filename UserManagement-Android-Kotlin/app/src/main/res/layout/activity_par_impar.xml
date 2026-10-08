@@ -4,13 +4,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:padding="24dp">
+
+    <ImageButton android:id="@+id/btnAtras" android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_arrow_back" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="@string/back" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Validar número Par o Impar"
+        android:text="@string/parity_title"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -20,33 +23,27 @@
         android:id="@+id/etNumero"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ingrese un número"
+        android:hint="@string/required_number"
         android:inputType="numberSigned"/>
 
     <Button
         android:id="@+id/btnValidar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="VALIDAR"
+        android:text="@string/validate"
         android:layout_marginTop="20dp"/>
 
     <TextView
         android:id="@+id/tvResultado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Resultado"
+        android:text="@string/result"
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginTop="30dp"/>
 
 
-    <Button
-        android:id="@+id/btnVolver"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="VOLVER APPS"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="30dp" />
+
 
 </LinearLayout>

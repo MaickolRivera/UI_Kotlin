@@ -75,3 +75,29 @@ Password → BCrypt Verify → PasswordHash
 | POST | /api/Usuarios/login | Iniciar sesión |
 | PUT | /api/Usuarios/{id} | Actualizar usuario |
 | DELETE | /api/Usuarios/{id} | Eliminar usuario |
+## Crear la base de datos MySQL
+
+La migración inicial incluida en `Migrations` crea la tabla `Usuarios`
+con todos los campos de la entidad y un índice único para `Correo`.
+
+1. Inicia MySQL y configura `ConnectionStrings:MySql` en `appsettings.json`
+   con el nombre de la base de datos, usuario y contraseña reales.
+   El usuario necesita permisos para crear la base de datos y sus tablas.
+2. Si no tienes la herramienta de EF Core 8, instálala:
+
+   ```powershell
+   dotnet tool install --global dotnet-ef --version 8.0.20
+   ```
+
+3. Desde la carpeta del proyecto, aplica la migración:
+
+   ```powershell
+   dotnet ef database update
+   ```
+
+Este último comando compila el proyecto y crea la base de datos si no existe.
+Si ya cuentas con una compilación actualizada que incluye la migración, puedes
+evitar compilar usando `dotnet ef database update --no-build`.
+
+No necesitas ejecutar `dotnet ef migrations add InitialCreate`: la migración
+y el snapshot ya están incluidos. No se aplica automáticamente al iniciar la API.

@@ -14,7 +14,7 @@
         android:layout_width="220dp"
         android:layout_height="100dp"
         android:src="@drawable/logo_ucompensar"
-        android:contentDescription="Logo UCompensar"
+        android:contentDescription="@string/logo_description"
         android:scaleType="fitCenter"
         android:layout_marginBottom="20dp" />
 
@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Inicio de sesión"
+        android:text="@string/login_title"
         android:textSize="28sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -33,7 +33,7 @@
         android:id="@+id/etCorreo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Correo electrónico"
+        android:hint="@string/email"
         android:inputType="textEmailAddress" />
 
     <!-- CONTRASEÑA -->
@@ -41,7 +41,7 @@
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Contraseña"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:layout_marginTop="15dp" />
 
@@ -50,7 +50,7 @@
         android:id="@+id/btnIngresar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="INGRESAR"
+        android:text="@string/sign_in"
         android:layout_marginTop="25dp" />
 
     <!-- BOTÓN CREAR CUENTA -->
@@ -58,7 +58,7 @@
         android:id="@+id/btnCrearCuenta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CREAR CUENTA"
+        android:text="@string/create_account"
         android:layout_marginTop="10dp" />
 
     <!-- MENSAJE -->

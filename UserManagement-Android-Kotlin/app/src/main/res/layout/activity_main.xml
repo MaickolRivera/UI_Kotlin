@@ -6,12 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:padding="24dp">
 
+    <ImageButton android:id="@+id/btnSalir" android:layout_width="48dp" android:layout_height="48dp" android:layout_gravity="end" android:src="@drawable/ic_logout" android:background="?attr/selectableItemBackgroundBorderless" android:contentDescription="@string/logout" />
+
     <TextView
+        android:id="@+id/tvSaludo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Práctica de Kotlin"
+        android:text=""
         android:textSize="26sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -22,14 +26,8 @@
         android:id="@+id/btnParImpar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ejercicio Par o Impar" />
+        android:text="@string/parity_exercise" />
 
-    <Button
-        android:id="@+id/btnVolver2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cerrar sesión"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="30dp" />
+
 
 </LinearLayout>
