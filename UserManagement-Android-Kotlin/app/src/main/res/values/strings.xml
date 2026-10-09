@@ -43,6 +43,7 @@
     <string name="sign_in">INGRESAR</string>
     <string name="create_account">CREAR CUENTA</string>
     <string name="register_title">Registro de usuario</string>
+    <string name="register_description">Completa tus datos para crear tu cuenta</string>
     <string name="name">Nombre</string>
     <string name="surname">Apellido</string>
     <string name="birth_date">Fecha de nacimiento</string>
