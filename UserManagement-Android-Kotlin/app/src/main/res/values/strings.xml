@@ -37,6 +37,7 @@
     <string name="back">Regresar</string>
     <string name="logo_description">Logo UCompensar</string>
     <string name="login_title">Inicio de sesión</string>
+    <string name="login_description">Ingresa tu correo y contraseña para acceder a tu cuenta</string>
     <string name="email">Correo electrónico</string>
     <string name="password">Contraseña</string>
     <string name="sign_in">INGRESAR</string>
